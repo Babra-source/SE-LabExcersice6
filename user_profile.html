@@ -23,11 +23,29 @@
             text-align: center;
             color: #087F23;
         }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #087F23;
+            border-radius: 5px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+        }
+        .nav a:hover {
+            background: #065918;
+            border-radius: 5px;
+        }
         .profile-pic {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            margin-top: 20px;
         }
         .profile-pic img {
             width: 120px;
@@ -53,11 +71,15 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        button {
-            display: block;
-            width: 100%;
+        .button-container {
+            display: flex;
+            justify-content: space-between;
             margin-top: 15px;
+        }
+        button {
+            flex: 1;
             padding: 10px;
+            margin: 5px;
             background: #087F23;
             color: white;
             border: none;
@@ -67,15 +89,6 @@
         }
         button:hover {
             background: #065918;
-        }
-        .links {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .links a {
-            text-decoration: none;
-            color: #087F23;
-            font-weight: bold;
         }
         .message {
             text-align: center;
@@ -89,6 +102,11 @@
 <body>
 
     <div class="container">
+        <div class="nav">
+            <a href="dashboard.html">⬅ Back to Dashboard</a>
+            <a href="logout.html">Logout</a>
+        </div>
+        
         <h1>User Profile</h1>
         <div class="profile-pic">
             <img id="profileImage" src="default-profile.png" alt="Profile Picture">
@@ -97,30 +115,31 @@
         
         <div class="profile-info">
             <label for="fullName">Full Name:</label>
-            <input type="text" id="fullName" value="Afriyie Amankwah">
+            <input type="text" id="fullName">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" value="afriyie@example.com">
+            <input type="email" id="email">
 
             <label for="phone">Phone Number:</label>
-            <input type="text" id="phone" value="+233 123 456 789">
+            <input type="text" id="phone">
 
             <label for="bio">Bio:</label>
-            <textarea id="bio">I am a skilled artisan providing top-notch services.</textarea>
+            <textarea id="bio"></textarea>
 
-            <button onclick="saveProfile()">Save Changes</button>
+            <div class="button-container">
+                <button onclick="saveProfile()">Save Changes</button>
+                <button onclick="goBack()">Cancel</button>
+            </div>
 
             <p class="message" id="message"></p>
-        </div>
-
-        <div class="links">
-            <a href="user_services.html">My Services</a> | 
-            <a href="user_listings.html">My Listings</a>
         </div>
     </div>
 
     <script>
-        // Function to preview profile picture
+        function goBack() {
+            window.history.back();
+        }
+
         document.getElementById("profilePicInput").addEventListener("change", function(event) {
             const reader = new FileReader();
             reader.onload = function() {
@@ -129,42 +148,26 @@
             reader.readAsDataURL(event.target.files[0]);
         });
 
-        // Function to save profile updates
+        let user = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (user) {
+            document.getElementById("fullName").value = user.full_name || "";
+            document.getElementById("email").value = user.email || "";
+            document.getElementById("phone").value = user.phone || "";
+            document.getElementById("bio").value = user.bio || "";
+        } else {
+            alert("Please log in first!");
+            window.location.href = "login.html";
+        }
+
         function saveProfile() {
             const fullName = document.getElementById("fullName").value;
             const email = document.getElementById("email").value;
             const phone = document.getElementById("phone").value;
             const bio = document.getElementById("bio").value;
 
-            // Data to send to backend
-            const userData = {
-                full_name: fullName,
-                email: email,
-                phone: phone,
-                bio: bio
-            };
-
-            fetch("https://your-backend-api.com/api/update-profile", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(userData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById("message").innerText = "Profile updated successfully!";
-                } else {
-                    document.getElementById("message").innerText = "Failed to update profile.";
-                    document.getElementById("message").style.color = "red";
-                }
-            })
-            .catch(error => {
-                console.error("Error updating profile:", error);
-                document.getElementById("message").innerText = "An error occurred. Try again.";
-                document.getElementById("message").style.color = "red";
-            });
+            const userData = { full_name: fullName, email: email, phone: phone, bio: bio };
+            localStorage.setItem("loggedInUser", JSON.stringify(userData));
+            document.getElementById("message").innerText = "Profile updated successfully!";
         }
     </script>
 

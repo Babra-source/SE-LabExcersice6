@@ -74,12 +74,13 @@
         } else {
             document.getElementById("welcomeText").innerText = "Hello, " + user.username + "!";
             let navLinks = document.getElementById("navLinks");
-
+    
             if (user.userType === "artisan") {
                 navLinks.innerHTML = `
                     <a href="services.html">My Services</a>
                     <a href="bookings.html">Bookings</a>
                     <a href="messages.html">Messages</a>
+                    <a href="user_profile.html">Profile</a>
                     <a href="reviews.html">Reviews</a>
                 `;
             } else if (user.userType === "client") {
@@ -88,6 +89,7 @@
                     <a href="listings.html">Shop Listings</a>
                     <a href="orders.html">My Orders</a>
                     <a href="messages.html">Messages</a>
+                    <a href="user_profile.html">Profile</a>
                 `;
             } else if (user.userType === "admin") {
                 navLinks.innerHTML = `
@@ -95,16 +97,18 @@
                     <a href="manage_services.html">Manage Services</a>
                     <a href="manage_orders.html">Manage Orders</a>
                     <a href="reports.html">Reports</a>
+                    <a href="user_profile.html">Profile</a>
                 `;
             }
         }
-
+    
         function logout() {
             localStorage.removeItem("loggedInUser");
             alert("Logged out successfully!");
             window.location.href = "login.html";
         }
     </script>
+    
 
 </body>
 </html>
