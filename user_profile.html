@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | EmpowerSkills Ghana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #087F23;
+        }
+        .profile-pic {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .profile-pic img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #087F23;
+        }
+        input[type="file"] {
+            margin-top: 10px;
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background: #087F23;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #065918;
+        }
+        .links {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #087F23;
+            font-weight: bold;
+        }
+        .message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>User Profile</h1>
+        <div class="profile-pic">
+            <img id="profileImage" src="default-profile.png" alt="Profile Picture">
+            <input type="file" id="profilePicInput" accept="image/*">
+        </div>
+        
+        <div class="profile-info">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" value="Afriyie Amankwah">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="afriyie@example.com">
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" value="+233 123 456 789">
+
+            <label for="bio">Bio:</label>
+            <textarea id="bio">I am a skilled artisan providing top-notch services.</textarea>
+
+            <button onclick="saveProfile()">Save Changes</button>
+
+            <p class="message" id="message"></p>
+        </div>
+
+        <div class="links">
+            <a href="user_services.html">My Services</a> | 
+            <a href="user_listings.html">My Listings</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to preview profile picture
+        document.getElementById("profilePicInput").addEventListener("change", function(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById("profileImage").src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
+
+        // Function to save profile updates
+        function saveProfile() {
+            const fullName = document.getElementById("fullName").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const bio = document.getElementById("bio").value;
+
+            // Data to send to backend
+            const userData = {
+                full_name: fullName,
+                email: email,
+                phone: phone,
+                bio: bio
+            };
+
+            fetch("https://your-backend-api.com/api/update-profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("message").innerText = "Profile updated successfully!";
+                } else {
+                    document.getElementById("message").innerText = "Failed to update profile.";
+                    document.getElementById("message").style.color = "red";
+                }
+            })
+            .catch(error => {
+                console.error("Error updating profile:", error);
+                document.getElementById("message").innerText = "An error occurred. Try again.";
+                document.getElementById("message").style.color = "red";
+            });
+        }
+    </script>
+
+</body>
+</html>
