@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000, #4b0082, #ff1493, #1e90ff);
+            color: white;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .page-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Profile section */
+        .profile-section {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0px 0px 15px rgba(255, 20, 147, 0.7);
+            grid-column: 1;
+            text-align: center;
+        }
+        
+        .profile-pic-container {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px;
+            position: relative;
+            border: 4px solid #ff1493;
+            overflow: hidden;
+        }
+        
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .name-title {
+            color: #ff1493;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Info section */
+        .info-section {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0px 0px 15px rgba(30, 144, 255, 0.7);
+            grid-column: 2;
+        }
+        
+        .section-title {
+            color: #1e90ff;
+            border-bottom: 2px solid #4b0082;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        
+        .info-content {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        /* Social links section */
+        .social-section {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0px 0px 15px rgba(75, 0, 130, 0.7);
+            grid-column: 1;
+            margin-top: 25px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: #1e90ff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links a:hover {
+            color: #ff1493;
+            transform: scale(1.1);
+        }
+        
+        .social-icon {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        /* Fun facts section */
+        .fun-facts-section {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0px 0px 15px rgba(255, 20, 147, 0.7);
+            grid-column: 2;
+            margin-top: 25px;
+        }
+        
+        .fun-fact-button {
+            background: rgba(75, 0, 130, 0.8);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            color: white;
+            margin-top: 15px;
+        }
+        
+        .fun-fact-button:hover {
+            background: rgba(30, 144, 255, 0.8);
+            transform: scale(1.05);
+        }
+        
+        #funFactText {
+            min-height: 60px;
+            font-size: 18px;
+            padding: 15px;
+            margin-top: 20px;
+            background: rgba(75, 0, 130, 0.4);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        /* NEW: Floating emoji stickers */
+        .floating-emoji {
+            position: fixed;
+            font-size: 2.5rem;
+            animation: float 8s infinite ease-in-out;
+            z-index: 0;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        /* NEW: Dropdown elements */
+        .dropdown-container {
+            position: absolute;
+            width: 180px;
+            z-index: 2;
+        }
+        
+        .dropdown-button {
+            background: rgba(0, 0, 0, 0.8);
+            color: #1e90ff;
+            padding: 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(255, 20, 147, 0.7);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            border: none;
+        }
+        
+        .dropdown-button:hover {
+            background: rgba(75, 0, 130, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .dropdown-content {
+            display: none;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 15px;
+            margin-top: 10px;
+            padding: 15px;
+            box-shadow: 0px 0px 15px rgba(30, 144, 255, 0.7);
+            text-align: center;
+        }
+        
+        .dropdown-container:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Positions for dropdowns */
+        .top-left {
+            top: 20px;
+            left: 20px;
+        }
+        
+        .top-right {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+        
+        .bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .page-container {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            .profile-section, .info-section, .social-section, .fun-facts-section {
+                grid-column: 1;
+            }
+            
+            .dropdown-container {
+                position: relative;
+                margin: 20px auto;
+                left: auto;
+                right: auto;
+                top: auto;
+                bottom: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEW: Floating Emojis -->
+    <div class="floating-emoji" style="top: 15%; left: 5%;">🦋</div>
+    <div class="floating-emoji" style="top: 25%; right: 8%;">✨</div>
+    <div class="floating-emoji" style="top: 60%; left: 8%;">🌈</div>
+    <div class="floating-emoji" style="top: 75%; right: 5%;">💖</div>
+    <div class="floating-emoji" style="top: 40%; left: 90%;">🌟</div>
+    <div class="floating-emoji" style="top: 85%; left: 45%;">🎵</div>
+    <div class="floating-emoji" style="top: 10%; left: 50%;">🌸</div>
+    <div class="floating-emoji" style="top: 85%; left: 8%;">🎵</div>
+    
+    <!-- NEW: Dropdown Elements -->
+    <div class="dropdown-container top-left">
+        <button class="dropdown-button">🎭 My Favorites 🎭</button>
+        <div class="dropdown-content">
+            <p>🎬 Movie: I dunno...a lot actually</p>
+            <p>🎵 Music: Gospel, RnB, afrobeats,....</p>
+            <p>🍽️ Food: A lot charley</p>
+            <p>📚 Book: The Rules Series</p>
+            <p>🎨 Color: Black & blue</p>
+        </div>
+    </div>
+    
+    <div class="dropdown-container top-right">
+        <button class="dropdown-button">🌍 Travel Wishes 🌍</button>
+        <div class="dropdown-content">
+            <p>🇫🇷 Paris, France</p>
+            <p>🇮🇸 Iceland for the Northern Lights</p>
+            <p>🇬🇷 Santorini, Greece</p>
+            <p>🇨🇭 Interlaken, Switzerland</p>
+            <p>🇯🇵 Tokyo, Japan</p>
+            <p>🇧🇷 Rio de Janeiro, Brazil</p>
+           
+        </div>
+    </div>
+    
+    <div class="dropdown-container bottom-left">
+        <button class="dropdown-button">💭 Daily Quotes 💭</button>
+        <div class="dropdown-content">
+            <p>✨ "Dream big, work hard, stay focused!"</p>
+            <p>🌟 "Be the change you wish to see!"</p>
+            <p>💖 "God's grace is sufficient!"</p>
+            <p>🌈 "Every day is a new beginning!"</p>
+            <p>🌈 "Simplicity is the ultimate sophistication!"</p>
+        </div>
+    </div>
+    
+    <div class="dropdown-container bottom-right">
+        <button class="dropdown-button">🎯 Future Goals 🎯</button>
+        <div class="dropdown-content">
+            <p>👩‍💻 Become a top Data Scientist</p>
+            <p>💰 Financial freedom by 35</p>
+            <p>🏠 Own a beach house</p>
+            <p>✈️ Visit 20+ countries</p>
+            <p>🤲 Start a charity foundation(Eliya)</p>
+        </div>
+    </div>
+    
+    <div class="page-container">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-pic-container">
+                <img src="moi.jpg" alt="My Picture" class="profile-pic">
+            </div>
+            <h1 class="name-title">✨👑 Hi, I'm Elizabeth Avevor Afful! 👑✨</h1>
+            <p>🌟💖 Nice to meet you! 💖🌟</p>
+            <p>🌟🎉 Welcome to my personal page! 🎉🌟</p>
+        </div>
+        
+        <!-- Info Section -->
+        <div class="info-section">
+            <h2 class="section-title">💫 Eliya 💫</h2>
+            <div class="info-content">
+                <p>👋🌊 I love nature, especially the rain and the ocean. 🌧️🌊</p>
+                <p>🎓💻 Currently studying Computer Science at Ashesi. 📚👩‍💻</p>
+                <p>🌎✈️ I'm currently in Ghana, and I eagerly anticipate exploring the world. 🌍🧳</p>
+                <p>🚀💰 My goal is to make more money and be a rich auntie, thats's on, PERIODDDD! 💅💎</p>
+                <p>🚀🙏 Oh, and of course to make God happy in all my ways... ✝️❤️</p>
+            </div>
+        </div>
+        
+        <!-- Social Links Section -->
+        <div class="social-section">
+            <h2 class="section-title">🔗💬 Not really a fan of social media but we could still Connect! 🤳🌐</h2>
+            <div class="social-links">
+                <a href="https://www.instagram.com/afful_yayra/">
+                    <span class="social-icon">📷📱</span>
+                    Instagram
+                </a>
+                <a href="https://www.linkedin.com/in/elizabeth-avevor">
+                    <span class="social-icon">💼👔</span>
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+        
+        <!-- Fun Facts Section -->
+        <div class="fun-facts-section">
+            <h2 class="section-title">🎮🎲 Fun Facts 🎲🎮</h2>
+            <p>💡✨ Click the button below to discover something interesting about me! ✨💡</p>
+            <button class="fun-fact-button" onclick="showFunFact()">🎲🎯 Reveal a Fun Fact! 🎯🎲</button>
+            <div id="funFactText"></div>
+        </div>
+    </div>
+    
+    <script>
+        function showFunFact() {
+            const facts = [
+                "🍕🥗 I love healthy food. 🥦🍎",
+                "🌌✨ I love stargazing and would love to see the Northern lights one day 🌠🔭",
+                "🎵🎧 I love music 🎶🎹",
+                "✈️🧳 I've traveled to all the Southern regions in Ghana 🌍🚌",
+                "📚✝️ The Bible is one of my favourite books, it has a lot of humour and great stuff... 🙏📖",
+                "🎮🏎️ My favorite video games as a child were GTA and NFS!! 🚗🎯",
+                "📝🙏 I like jornaling and I have a gratitude can. 📓✍️",
+                "🎵💃 I can actually dance! 🕺🎶",
+                "🌊🏰 I've visited the Cape Coast Castle and learned about its powerful history! 🏛️📜",
+                "💰💵 I used to keep a collection of old Ghanaian cedi notes! Don't know where they are now though. 🪙🇬🇭",
+                "🛥️🌊 I've cruised on the Volta Lake before. 🚤💦",
+                "🍦🍨 I could eat ice cream every day! 🧁🍧",  
+                "💖✨ I love good perfumes, of course, girl gotta smell good! 🌸💐🧴💫"
+            ];
+            
+            const randomFact = facts[Math.floor(Math.random() * facts.length)];
+            const factElement = document.getElementById('funFactText');
+            
+            // Add animation effect
+            factElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                factElement.innerText = randomFact;
+                factElement.style.opacity = 1;
+            }, 300);
+        }
+        
+        // Make floating emojis move at different speeds
+        const floatingEmojis = document.querySelectorAll('.floating-emoji');
+        floatingEmojis.forEach((emoji, index) => {
+            emoji.style.animationDuration = (6 + index % 5) + 's';
+            emoji.style.animationDelay = (index * 0.5) + 's';
+        });
+    </script>
+</body>
+</html>
