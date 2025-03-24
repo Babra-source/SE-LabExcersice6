@@ -88,6 +88,9 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             text-align: center;
             border-left: 4px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .team-member h3 {
@@ -98,8 +101,25 @@
         .team-member p {
             font-size: 0.9rem;
             color: #666;
+            margin-bottom: 1rem;
         }
         
+        .team-member .profile-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .team-member .profile-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Rest of the previous CSS remains the same */
         .git-commands {
             background-color: #1e1e1e;
             color: #f1f1f1;
@@ -238,22 +258,27 @@
             <div class="team-member">
                 <h3>Phiwayinkhosi</h3>
                 <p>Developer</p>
+                <a href="phiwayinkhosi-profile.html" class="profile-btn">View Profile</a>
             </div>
             <div class="team-member">
                 <h3>Beatrice</h3>
                 <p>Developer</p>
+                <a href="beatrice-profile.html" class="profile-btn">View Profile</a>
             </div>
             <div class="team-member">
                 <h3>Eunice</h3>
                 <p>Developer</p>
+                <a href="eunice-profile.html" class="profile-btn">View Profile</a>
             </div>
             <div class="team-member">
                 <h3>Velma</h3>
                 <p>Developer</p>
+                <a href="velma-profile.html" class="profile-btn">View Profile</a>
             </div>
             <div class="team-member">
                 <h3>Elizabeth</h3>
                 <p>Developer</p>
+                <a href="elizabeth-profile.html" class="profile-btn">View Profile</a>
             </div>
         </div>
         
