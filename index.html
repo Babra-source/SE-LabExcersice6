@@ -3,9 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Excercise 6</title>
+    <title>Software Engineering Lab 6 - Git Exercise</title>
+    <style>
+        :root {
+            --primary: #6a0dad;
+            --primary-light: #9c27b0;
+            --primary-dark: #4a148c;
+            --accent: #ff6e00;
+            --text-light: #f5f5f5;
+            --text-dark: #333;
+            --background: #f9f5ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .team-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .team-member {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .team-member h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .git-commands {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        .git-commands code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .git-command {
+            margin: 0.5rem 0;
+            display: flex;
+        }
+        
+        .git-command span.prompt {
+            color: #9c27b0;
+            margin-right: 1rem;
+        }
+        
+        .git-command span.command {
+            color: #fff;
+        }
+        
+        .git-command span.comment {
+            color: #6a9955;
+            margin-left: 1rem;
+        }
+        
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #ff8124;
+        }
+        
+        #gitAnimation {
+            width: 100%;
+            height: 250px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .branch {
+            position: absolute;
+            height: 4px;
+            background-color: var(--primary);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .commit {
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .commit:hover {
+            transform: translateY(-50%) scale(1.3);
+        }
+        
+        .commit-label {
+            position: absolute;
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            top: 65%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 768px) {
+            .team-section {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    Hello Guys 
+    <header>
+        <div class="container">
+            <h1>EmpowerCrafts Ghana</h1>
+            <p class="subtitle">Software Engineering Lab 6 - Git Collaboration Exercise</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="card">
+            <h2>Project Overview</h2>
+            <p>
+                Welcome to our Software Engineering Lab 6 project page! In this lab exercise, we're focusing on Git collaboration workflows including repositories, branching, merging, and cloning. Our team is working on the EmpowerCrafts Ghana project, developing tools to support local artisans.
+            </p>
+            <a href="#git-section" class="btn">View Git Commands</a>
+        </div>
+        
+        <h2>Our Team</h2>
+        <div class="team-section">
+            <div class="team-member">
+                <h3>Phiwayinkhosi</h3>
+                <p>Developer</p>
+            </div>
+            <div class="team-member">
+                <h3>Beatrice</h3>
+                <p>Developer</p>
+            </div>
+            <div class="team-member">
+                <h3>Eunice</h3>
+                <p>Developer</p>
+            </div>
+            <div class="team-member">
+                <h3>Velma</h3>
+                <p>Developer</p>
+            </div>
+            <div class="team-member">
+                <h3>Elizabeth</h3>
+                <p>Developer</p>
+            </div>
+        </div>
+        
+        <div id="gitAnimation"></div>
+        
+        <div class="card" id="git-section">
+            <h2>Git Collaboration</h2>
+            <p>
+                Our team is practicing essential Git workflows for effective collaboration. Here are some of the commands we're using in this lab:
+            </p>
+            
+            <div class="git-commands">
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git clone https://github.com/team/empowercrafts-ghana.git</span>
+                    <span class="comment"># Clone the repository</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git branch feature-dashboard</span>
+                    <span class="comment"># Create a new branch</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git checkout feature-dashboard</span>
+                    <span class="comment"># Switch to the new branch</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git add .</span>
+                    <span class="comment"># Stage changes</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git commit -m "Add user dashboard features"</span>
+                    <span class="comment"># Commit changes</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git push origin feature-dashboard</span>
+                    <span class="comment"># Push to remote branch</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git checkout main</span>
+                    <span class="comment"># Switch back to main branch</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git pull origin main</span>
+                    <span class="comment"># Get latest changes</span>
+                </div>
+                <div class="git-command">
+                    <span class="prompt">$</span>
+                    <span class="command">git merge feature-dashboard</span>
+                    <span class="comment"># Merge feature branch into main</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>About EmpowerCrafts Ghana</h2>
+            <p>
+                EmpowerCrafts Ghana is a project aimed at empowering local artisans by providing digital tools to showcase and sell their crafts globally. Our team is developing a platform that connects Ghana's talented craftspeople with international markets.
+            </p>
+            <p>
+                Through our Git collaboration exercise, we're building the foundation for this platform while practicing essential software engineering skills.
+            </p>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Software Engineering Lab 6 - Git Exercise</p>
+            <p>Team: Phiwayinkhosi, Beatrice, Eunice, Velma, Elizabeth</p>
+            <p>&copy; 2025 EmpowerCrafts Ghana</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gitAnimation = document.getElementById('gitAnimation');
+            const container = gitAnimation.getBoundingClientRect();
+            const width = container.width;
+            
+            // Create main branch
+            const mainBranch = document.createElement('div');
+            mainBranch.className = 'branch';
+            mainBranch.style.width = `${width * 0.8}px`;
+            mainBranch.style.left = `${width * 0.1}px`;
+            gitAnimation.appendChild(mainBranch);
+            
+            // Create feature branch
+            const featureBranch = document.createElement('div');
+            featureBranch.className = 'branch';
+            featureBranch.style.width = `${width * 0.5}px`;
+            featureBranch.style.left = `${width * 0.2}px`;
+            featureBranch.style.top = '70%';
+            gitAnimation.appendChild(featureBranch);
+            
+            // Create branch connection
+            const branchConnection = document.createElement('div');
+            branchConnection.className = 'branch';
+            branchConnection.style.width = '4px';
+            branchConnection.style.height = '40px';
+            branchConnection.style.left = `${width * 0.2}px`;
+            branchConnection.style.top = '50%';
+            branchConnection.style.transform = 'none';
+            gitAnimation.appendChild(branchConnection);
+            
+            // Create merge connection
+            const mergeConnection = document.createElement('div');
+            mergeConnection.className = 'branch';
+            mergeConnection.style.width = '4px';
+            mergeConnection.style.height = '40px';
+            mergeConnection.style.left = `${width * 0.7}px`;
+            mergeConnection.style.top = '50%';
+            mergeConnection.style.transform = 'none';
+            gitAnimation.appendChild(mergeConnection);
+            
+            // Create commits
+            const commits = [
+                { x: width * 0.1, y: '50%', label: 'Initial commit' },
+                { x: width * 0.2, y: '50%', label: 'Add project structure' },
+                { x: width * 0.3, y: '70%', label: 'Feature: Login' },
+                { x: width * 0.5, y: '70%', label: 'Feature: Dashboard' },
+                { x: width * 0.7, y: '70%', label: 'Feature: User profiles' },
+                { x: width * 0.7, y: '50%', label: 'Merge features' },
+                { x: width * 0.9, y: '50%', label: 'Release v1.0' }
+            ];
+            
+            commits.forEach((commit, index) => {
+                setTimeout(() => {
+                    const commitEl = document.createElement('div');
+                    commitEl.className = 'commit';
+                    commitEl.style.left = `${commit.x}px`;
+                    commitEl.style.top = commit.y;
+                    gitAnimation.appendChild(commitEl);
+                    
+                    const labelEl = document.createElement('div');
+                    labelEl.className = 'commit-label';
+                    labelEl.innerText = commit.label;
+                    labelEl.style.left = `${commit.x}px`;
+                    labelEl.style.top = commit.y === '50%' ? '20%' : '90%';
+                    gitAnimation.appendChild(labelEl);
+                    
+                    commitEl.addEventListener('mouseover', () => {
+                        labelEl.style.zIndex = '10';
+                        labelEl.style.transform = 'translateX(-50%) scale(1.1)';
+                    });
+                    
+                    commitEl.addEventListener('mouseout', () => {
+                        labelEl.style.zIndex = '1';
+                        labelEl.style.transform = 'translateX(-50%) scale(1)';
+                    });
+                }, index * 300);
+            });
+        });
+    </script>
 </body>
 </html>
