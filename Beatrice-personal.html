@@ -3,34 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beatrice Abraham - Profile</title>
+    <title>Beatrice Abraham - Tech Professional</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #0A1931;
+            --secondary-color: #contrast-#0A1931;
+            --accent-color: #16213E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: #fff4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, 0.05) 25%, rgba(0, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, 0.05) 25%, rgba(0, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.5;
+            z-index: 2;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { 
+                transform: translateY(-30px) rotate(10deg);
+                opacity: 0.7;
+            }
+        }
+
+        #emoji1 { top: 10%; left: 5%; animation-delay: 0.2s; }
+        #emoji2 { top: 80%; right: 10%; animation-delay: 0.5s; }
+        #emoji3 { top: 30%; right: 5%; animation-delay: 0.8s; }
+        #emoji4 { bottom: 20%; left: 5%; animation-delay: 1.1s; }
+
+        .profile-container {
+            background-color: rgb(255, 255, 255);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px;
             text-align: center;
-            margin: 50px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             max-width: 500px;
-            margin: auto;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
-        img {
-            width: 150px;
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .bio {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 24px;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .skills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            background-color: rgba(10, 25, 49, 0.1);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="Head_shot.jpg" alt="Beatrice Abraham">
-        <h1>Beatrice Abraham</h1>
-        <p><strong>Computer Science Student | Tech Enthusiast | Community Builder</strong></p>
-        <p>Passionate about technology, problem-solving, and community engagement. I love building projects that create impact and empower others.</p>
-    </div>
+    <div class="background-grid"></div>
+
+    <div class="floating-emoji" id="emoji1">💻</div>
+    <div class="floating-emoji" id="emoji2">🚀</div>
+    <div class="floating-emoji" id="emoji3">🌐</div>
+    <div class="floating-emoji" id="emoji4">👩‍💻</div>
+
+    <div class="profile-container">
+        <img src="Head_shot.jpg" alt="Beatrice Abraham" class="profile-image">
+        
+        <h1 class="name">Beatrice Abraham</h1>
+        <p class="tagline">Software Engineer | Tech Innovator | Community Catalyst</p>
+        
+        <p class="bio">Dedicated computer science professional passionate about leveraging technology to solve complex problems. Specializing in innovative software solutions, with a keen interest in emerging technologies and their potential to drive meaningful change.</p>
+        
+        <div class="skills">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Machine Learning</span>
+            <span class="skill-tag">Web Development</span>
+ 
+        </div>
+
+        <div class="social-links">
+            <a href="https://linkedin.com/in/beatrice-abraham/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Babra-source" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+        
 </body>
 </html>
