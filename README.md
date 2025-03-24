@@ -1,6 +1,6 @@
 # SE-LabExcersice6
 Team Members 
-* Velma Atienoo
+* Velma Atieno
 * Elizabeth Avevor Afful 
 * Eunice Sayubu  
 * Phiwayinkhosi Precious Lukhele
