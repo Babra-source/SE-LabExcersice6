@@ -3,86 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/login.css">
     <title>Login | EmpowerSkills Ghana</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #4CAF50, #2E8B57);
-            color: white;
-            text-align: center;
-        }
-        .container {
-            width: 300px;
-            margin: auto;
-            padding: 20px;
-            background: white;
-            color: black;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-            margin-top: 50px;
-        }
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        a {
-            display: block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: #2E8B57;
-        }
-    </style>
 </head>
+
+
 <body>
 
+    <!-- Login Form -->
     <div class="container">
         <h2>Login</h2>
-        <form id="loginForm">
+        <form id="loginForm" onsubmit="return formvalidate()">
             <input type="email" id="email" placeholder="Email" required>
             <input type="password" id="password" placeholder="Password" required>
+            <span id="passwordError" style="color:rgb(255, 3, 3);"></span><br><br>
+            <div id="loginError" style="color: red;"></div>
+            <div id="loginSuccess" style="color: green;"></div>
             <button type="submit">Login</button>
         </form>
         <a href="signup.html">Don't have an account? Sign Up</a>
     </div>
 
+    <!-- Form Validation Script -->
+
+
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+        function formvalidate() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var errorMessages = [];
+            var passwordError = document.getElementById("passwordError");
+            passwordError.textContent = "";
 
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-            let storedUser = localStorage.getItem("userData");
-            if (!storedUser) {
-                alert("No user found. Please sign up.");
-                return;
+            if (email === "") {
+                errorMessages.push("Email is required!");
+            } else if (!emailPattern.test(email)) {
+                errorMessages.push("Invalid email format");
             }
 
-            let userData = JSON.parse(storedUser);
-            if (userData.email === email && userData.password === password) {
-                alert("Login successful! Redirecting...");
-                localStorage.setItem("loggedInUser", JSON.stringify(userData));
-                window.location.href = "dashboard.html";
+            if (password.length < 8) {
+                errorMessages.push("Password must be at least 8 characters!");
+            }
+            if (!/[A-Z]/.test(password)) {
+                errorMessages.push("Password must contain at least one uppercase letter!");
+            }
+            if ((password.match(/\d/g) || []).length < 3) {
+                errorMessages.push("Password must include at least three digits!");
+            }
+            if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                errorMessages.push("Password must contain at least one special character!");
+            }
+
+            if (errorMessages.length > 0) {
+                passwordError.innerHTML = errorMessages.join("<br>");
+                return false;
             } else {
-                alert("Incorrect email or password!");
+                return true;
             }
-        });
+        }
     </script>
 
 </body>
