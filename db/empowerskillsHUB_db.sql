@@ -107,7 +107,7 @@ CREATE TABLE `listing_images` (
 --
 -- Table structure for table `messages`
 --
-
+--The message table 
 CREATE TABLE `messages` (
   `message_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
